@@ -317,23 +317,32 @@ public class LightningDialogBuilder {
                                          @NonNull final UIController uiController,
                                          @NonNull final String url,
                                          @NonNull final String userAgent) {
+        final String  currentUrl = uiController.getTabModel().getCurrentTab().getUrl();
         BrowserDialog.show(activity, url.replace(Constants.HTTP, ""),
-            new BrowserDialog.Item(R.string.dialog_open_new_tab) {
+//            new BrowserDialog.Item(R.string.dialog_open_new_tab) {
+//                @Override
+//                public void onClick() {
+//                    uiController.handleNewTab(NewTab.FOREGROUND, url);
+//                }
+//            },
+//            new BrowserDialog.Item(R.string.dialog_open_background_tab) {
+//                @Override
+//                public void onClick() {
+//                    uiController.handleNewTab(NewTab.BACKGROUND, url);
+//                }
+//            },
+//            new BrowserDialog.Item(R.string.dialog_open_incognito_tab, activity instanceof MainActivity) {
+//                @Override
+//                public void onClick() {
+//                    uiController.handleNewTab(NewTab.INCOGNITO, url);
+//                }
+//            },
+            new BrowserDialog.Item(R.string.action_report_ad, Utils.isCORS(currentUrl, url)) {
                 @Override
                 public void onClick() {
-                    uiController.handleNewTab(NewTab.FOREGROUND, url);
-                }
-            },
-            new BrowserDialog.Item(R.string.dialog_open_background_tab) {
-                @Override
-                public void onClick() {
-                    uiController.handleNewTab(NewTab.BACKGROUND, url);
-                }
-            },
-            new BrowserDialog.Item(R.string.dialog_open_incognito_tab, activity instanceof MainActivity) {
-                @Override
-                public void onClick() {
-                    uiController.handleNewTab(NewTab.INCOGNITO, url);
+                    if (Utils.isCORS(currentUrl, url)) {
+                        // TODO report to server
+                    }
                 }
             },
             new BrowserDialog.Item(R.string.action_share) {
@@ -360,24 +369,24 @@ public class LightningDialogBuilder {
                                         @NonNull final UIController uiController,
                                         @NonNull final String url) {
         BrowserDialog.show(activity, url,
-            new BrowserDialog.Item(R.string.dialog_open_new_tab) {
-                @Override
-                public void onClick() {
-                    uiController.handleNewTab(NewTab.FOREGROUND, url);
-                }
-            },
-            new BrowserDialog.Item(R.string.dialog_open_background_tab) {
-                @Override
-                public void onClick() {
-                    uiController.handleNewTab(NewTab.BACKGROUND, url);
-                }
-            },
-            new BrowserDialog.Item(R.string.dialog_open_incognito_tab, activity instanceof MainActivity) {
-                @Override
-                public void onClick() {
-                    uiController.handleNewTab(NewTab.INCOGNITO, url);
-                }
-            },
+//            new BrowserDialog.Item(R.string.dialog_open_new_tab) {
+//                @Override
+//                public void onClick() {
+//                    uiController.handleNewTab(NewTab.FOREGROUND, url);
+//                }
+//            },
+//            new BrowserDialog.Item(R.string.dialog_open_background_tab) {
+//                @Override
+//                public void onClick() {
+//                    uiController.handleNewTab(NewTab.BACKGROUND, url);
+//                }
+//            },
+//            new BrowserDialog.Item(R.string.dialog_open_incognito_tab, activity instanceof MainActivity) {
+//                @Override
+//                public void onClick() {
+//                    uiController.handleNewTab(NewTab.INCOGNITO, url);
+//                }
+//            },
             new BrowserDialog.Item(R.string.action_share) {
                 @Override
                 public void onClick() {

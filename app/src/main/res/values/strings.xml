@@ -247,4 +247,5 @@
     <string name="dialog_remove_folder">Remove folder</string>
     <string name="dialog_title_close_browser">Close browser</string>
     <string name="exit">Exit</string>
+    <string name="action_report_ad">Report Ad</string>
 </resources>

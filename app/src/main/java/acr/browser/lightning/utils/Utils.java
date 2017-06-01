@@ -223,6 +223,19 @@ public final class Utils {
             return domain.startsWith("www.") ? domain.substring(4) : domain;
     }
 
+    /**
+     * Compare two url to check CORS.
+     *
+     * @param origUrl the URL to extract the domain from.
+     * @param checkUrl the URL to extract the domain from.
+     * @return true or false if not same domain or not port
+     */
+
+    public static boolean isCORS(String origUrl, String checkUrl) {
+        // FIXME to check port
+        return !Utils.getDomainName(origUrl).equals(Utils.getDomainName(checkUrl));
+    }
+
     public static void trimCache(@NonNull Context context) {
         try {
             File dir = context.getCacheDir();

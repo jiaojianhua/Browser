@@ -247,4 +247,5 @@
     <string name="dialog_remove_folder">刪除檔夾</string>
     <string name="dialog_title_close_browser">關閉瀏覽器</string>
     <string name="exit">退出</string>
+    <string name="action_report_ad">舉報廣告</string>
 </resources>

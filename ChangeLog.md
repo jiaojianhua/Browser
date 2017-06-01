@@ -10,3 +10,4 @@
 9. Update: build release apk. Signature user V1
 10. Update: release with name and new package
 11. Update: clear right menu
+12. Update: clear long press menu
