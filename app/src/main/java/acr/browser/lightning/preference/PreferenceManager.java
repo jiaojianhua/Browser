@@ -86,7 +86,7 @@ public class PreferenceManager {
     @NonNull
     public Suggestion getSearchSuggestionChoice() {
         try {
-            return Suggestion.valueOf(mPrefs.getString(Name.SEARCH_SUGGESTIONS, Suggestion.SUGGESTION_GOOGLE.name()));
+            return Suggestion.valueOf(mPrefs.getString(Name.SEARCH_SUGGESTIONS, Suggestion.SUGGESTION_BAIDU.name()));
         } catch (IllegalArgumentException ignored) {
             return Suggestion.SUGGESTION_NONE;
         }

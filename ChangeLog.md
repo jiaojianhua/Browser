@@ -7,3 +7,4 @@
 6. FIX: back or forward with refresh/redirect
 7. Add: ad block host
 8. FIX: Back and Forward
+9. Update: build release apk. Signature user V1
