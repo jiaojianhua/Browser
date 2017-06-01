@@ -182,7 +182,7 @@
     <string name="title_file_chooser">ファイルの選択</string>
     <string name="library_netcipher">NetCipher</string>
     <string name="license_gnu">GNU Lesser General Public License</string>
-    <string name="export_bookmarks">ブックマークをエクスポートする</string>
+    <string name="export_bookmarks">"        android:id=\"@+id/action_reading_mode\""</string>
     <string name="import_backup">ブックマークをインポートする</string>
     <string name="bookmark_export_path">ブックマークをエクスポートしました</string>
     <string name="bookmark_settings">ブックマーク</string>
@@ -235,7 +235,7 @@
     <string name="message_added_to_homescreen">ホーム画面にショートカットを追加しました</string>
     <string name="action_delete_all_bookmarks">すべてのブックマークを削除する</string>
 
-    <string name="faq">FAQ</string>
+    <string name="faq">"        android:title=\"@string/reading_mode\"/>"</string>
     <string name="faq_description">よくある質問と回答</string>
 
     <!-- debug strings -->

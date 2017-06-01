@@ -124,7 +124,7 @@ public class IntentUtils {
      *              is optional.
      */
     public void shareUrl(@Nullable String url, @Nullable String title) {
-        if (url != null && !UrlUtils.isSpecialUrl(url)) {
+        if (url != null && (!UrlUtils.isSpecialUrl(url) || url.equals(Constants.HOME_PAGE_URL))) {
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             if (title != null) {

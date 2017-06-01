@@ -24,6 +24,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -787,7 +788,7 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
                 openBookmarks();
                 return true;
             case R.id.action_copy:
-                if (currentUrl != null && !UrlUtils.isSpecialUrl(currentUrl)) {
+                if (currentUrl != null && (!UrlUtils.isSpecialUrl(currentUrl) || currentUrl.equals(Constants.HOME_PAGE_URL))) {
                     ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("label", currentUrl);
                     clipboard.setPrimaryClip(clip);
@@ -815,6 +816,9 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
                     startActivity(read);
                 }
                 return true;
+            case R.id.action_exit:
+                finish();
+                System.exit(0);
             default:
                 return super.onOptionsItemSelected(item);
         }
