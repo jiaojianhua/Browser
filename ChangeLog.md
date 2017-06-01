@@ -8,3 +8,4 @@
 7. Add: ad block host
 8. FIX: Back and Forward
 9. Update: build release apk. Signature user V1
+10. Update: release with name and new package
