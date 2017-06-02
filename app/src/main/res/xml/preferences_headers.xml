@@ -3,12 +3,12 @@
     <header
         android:fragment="acr.browser.lightning.fragment.GeneralSettingsFragment"
         android:title="@string/settings_general"/>
-    <header
-        android:fragment="acr.browser.lightning.fragment.BookmarkSettingsFragment"
-        android:title="@string/bookmark_settings"/>
-    <header
-        android:fragment="acr.browser.lightning.fragment.DisplaySettingsFragment"
-        android:title="@string/settings_display"/>
+    <!--<header-->
+        <!--android:fragment="acr.browser.lightning.fragment.BookmarkSettingsFragment"-->
+        <!--android:title="@string/bookmark_settings"/>-->
+    <!--<header-->
+        <!--android:fragment="acr.browser.lightning.fragment.DisplaySettingsFragment"-->
+        <!--android:title="@string/settings_display"/>-->
     <header
         android:fragment="acr.browser.lightning.fragment.PrivacySettingsFragment"
         android:title="@string/settings_privacy"/>
@@ -19,17 +19,17 @@
         android:fragment="acr.browser.lightning.fragment.AboutSettingsFragment"
         android:summary="@string/settings_about_explain"
         android:title="@string/settings_about"/>
-    <header
-        android:summary="@string/faq_description"
-        android:title="@string/faq">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="http://acrdevelopment.org/lightning/faq">
-            <extra
-                android:name="SOURCE"
-                android:value="SELF"/>
-        </intent>
-    </header>
+    <!--<header-->
+        <!--android:summary="@string/faq_description"-->
+        <!--android:title="@string/faq">-->
+        <!--<intent-->
+            <!--android:action="android.intent.action.VIEW"-->
+            <!--android:data="http://acrdevelopment.org/lightning/faq">-->
+            <!--<extra-->
+                <!--android:name="SOURCE"-->
+                <!--android:value="SELF"/>-->
+        <!--</intent>-->
+    <!--</header>-->
     <header
         android:fragment="acr.browser.lightning.fragment.DebugSettingsFragment"
         android:title="@string/debug_title"/>

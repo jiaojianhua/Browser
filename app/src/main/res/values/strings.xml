@@ -248,4 +248,5 @@
     <string name="dialog_title_close_browser">Close browser</string>
     <string name="exit">Exit</string>
     <string name="action_report_ad">Report Ad</string>
+    <string name="support_email">browser@3vonline.com</string>
 </resources>
