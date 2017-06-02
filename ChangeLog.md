@@ -11,3 +11,4 @@
 10. Update: release with name and new package
 11. Update: clear right menu
 12. Update: clear long press menu
+13. Update: lock bookmark and tabs when closed

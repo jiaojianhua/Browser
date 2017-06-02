@@ -339,7 +339,7 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
             Handlers.MAIN.post(new Runnable() {
                 @Override
                 public void run() {
-                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, getTabDrawer());
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, getTabDrawer());
                 }
             });
         } else {
@@ -359,7 +359,7 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
         Handlers.MAIN.post(new Runnable() {
             @Override
             public void run() {
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, getBookmarkDrawer());
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, getBookmarkDrawer());
             }
         });
 
@@ -565,9 +565,11 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
             View bookmarksDrawer = getBookmarkDrawer();
 
             if (v == tabsDrawer) {
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, bookmarksDrawer);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, bookmarksDrawer);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, tabsDrawer);
             } else if (mShowTabsInDrawer) {
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, tabsDrawer);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, tabsDrawer);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, bookmarksDrawer);
             }
         }
 
@@ -578,8 +580,10 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
 
             if (v == tabsDrawer) {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, bookmarksDrawer);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, tabsDrawer);
             } else {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, tabsDrawer);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, bookmarksDrawer);
             }
         }
 
@@ -817,8 +821,7 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
                 }
                 return true;
             case R.id.action_exit:
-                finish();
-                System.exit(0);
+                closeBrowser();
             default:
                 return super.onOptionsItemSelected(item);
         }
