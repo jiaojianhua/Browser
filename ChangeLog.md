@@ -13,3 +13,4 @@
 12. Update: clear long press menu
 13. Update: lock bookmark and tabs when closed
 14. Update: preference remove bookemark and display, change about. and app icon
+15. Update: preference use default setting in xml 
