@@ -504,6 +504,10 @@ public class PreferenceManager {
         putString(Name.USER_AGENT_STRING, agent);
     }
 
+    public boolean isContian(String key){
+        return mPrefs.contains(key);
+    }
+
     public void setUseWideViewportEnabled(boolean enable) {
         putBoolean(Name.USE_WIDE_VIEWPORT, enable);
     }
