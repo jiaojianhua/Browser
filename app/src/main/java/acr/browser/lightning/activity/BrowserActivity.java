@@ -1339,21 +1339,26 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
         } else {
             if (currentTab != null) {
                 Log.d(TAG, "onBackPressed");
-                if (mSearch.hasFocus()) {
-                    currentTab.requestFocus();
-                } else if (currentTab.canGoBack()) {
-                    if (!currentTab.isShown()) {
-                        onHideCustomView();
+                if (mCurrentView.getTranslationY() > 0.0){
+                    if (mSearch.hasFocus()) {
+                        currentTab.requestFocus();
+                    } else if (currentTab.canGoBack()) {
+                        if (!currentTab.isShown()) {
+                            onHideCustomView();
+                        } else {
+                            currentTab.goBack();
+                        }
                     } else {
-                        currentTab.goBack();
+                        if (mCustomView != null || mCustomViewCallback != null) {
+                            onHideCustomView();
+                        } else {
+                            mPresenter.deleteTab(mTabsManager.positionOf(currentTab));
+                        }
                     }
                 } else {
-                    if (mCustomView != null || mCustomViewCallback != null) {
-                        onHideCustomView();
-                    } else {
-                        mPresenter.deleteTab(mTabsManager.positionOf(currentTab));
-                    }
+                    showActionBar(true);
                 }
+
             } else {
                 Log.e(TAG, "This shouldn't happen ever");
                 super.onBackPressed();
@@ -2159,6 +2164,15 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
      */
     @Override
     public void showActionBar() {
+        showActionBar(false);
+    }
+    public void showActionBar(boolean force) {
+        String displayStr = mSearch.getText().toString();
+
+        if (!force &&
+                !displayStr.isEmpty() &&
+                ())
+            return;
         if (mFullScreen) {
             Log.d(TAG, "showActionBar");
             if (mToolbarLayout == null)
