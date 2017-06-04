@@ -2168,10 +2168,7 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
     }
     public void showActionBar(boolean force) {
         String displayStr = mSearch.getText().toString();
-
-        if (!force &&
-                !displayStr.isEmpty() &&
-                ())
+        if (!force && !displayStr.isEmpty())
             return;
         if (mFullScreen) {
             Log.d(TAG, "showActionBar");
