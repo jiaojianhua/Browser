@@ -2116,6 +2116,14 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
     }
 
     /**
+     * Check if a currenttab is a home_domain page
+     */
+    public boolean isHomeDomain() {
+        final LightningView currentTab = mTabsManager.getCurrentTab();
+        return currentTab != null &&UrlUtils.isHomeDomain(currentTab.getUrl());
+    }
+
+    /**
      * Hide the ActionBar using an animation if we are in full-screen
      * mode. This method also re-parents the ActionBar if its parent is
      * incorrect so that the animation can happen correctly.
@@ -2123,9 +2131,10 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
     @Override
     public void hideActionBar() {
         if (mFullScreen) {
-            if (mToolbarLayout == null || mBrowserFrame == null)
+            if (mToolbarLayout == null || mBrowserFrame == null || isHomeDomain())
                 return;
 
+            // should not hidden in home_page
             final int height = mToolbarLayout.getHeight();
             if (mToolbarLayout.getTranslationY() > -0.01f) {
                 Animation show = new Animation() {

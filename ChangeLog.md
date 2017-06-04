@@ -17,3 +17,4 @@
 16. Update: change package name to me.zhadan.browser
 17. Update: Disable downloads view because it is a uncomplete function
 18. FIX: crash if history item is null
+19. Update: In Home Domain, ActionBar will be there forever

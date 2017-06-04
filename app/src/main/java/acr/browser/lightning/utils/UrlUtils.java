@@ -137,4 +137,11 @@ public class UrlUtils {
     public static boolean isStartPageUrl(@Nullable String url) {
         return url != null && url.startsWith(Constants.FILE) && url.endsWith(StartPage.FILENAME);
     }
+
+    /**
+     * Check if a home_domain page
+     */
+    public static boolean isHomeDomain(@NonNull String url) {
+        return url.contains(Constants.HOME_DOMAIN);
+    }
 }
