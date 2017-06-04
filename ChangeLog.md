@@ -15,3 +15,4 @@
 14. Update: preference remove bookemark and display, change about. and app icon
 15. Update: preference use default setting in xml 
 16. Update: change package name to me.zhadan.browser
+16. Update: Disable downloads view because it is a uncomplete function
