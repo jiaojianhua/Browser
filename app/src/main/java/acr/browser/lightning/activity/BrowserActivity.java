@@ -97,6 +97,7 @@ import acr.browser.lightning.browser.BrowserView;
 import acr.browser.lightning.browser.TabsView;
 import acr.browser.lightning.constant.BookmarkPage;
 import acr.browser.lightning.constant.Constants;
+import acr.browser.lightning.constant.DownloadsPage;
 import acr.browser.lightning.constant.HistoryPage;
 import acr.browser.lightning.controller.UIController;
 import acr.browser.lightning.database.HistoryItem;
@@ -746,6 +747,59 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
     }
 
     @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        // Keyboard shortcuts
+        if (event.isCtrlPressed() && event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (event.getKeyCode()) {
+                case KeyEvent.KEYCODE_T:
+                    // Open new tab
+                    newTab(null, true);
+                    return true;
+                case KeyEvent.KEYCODE_W:
+                    // Close current tab
+                    mPresenter.deleteTab(mTabsManager.indexOfCurrentTab());
+                    return true;
+                case KeyEvent.KEYCODE_Q:
+                    // Close browser
+                    closeBrowser();
+                    return true;
+                case KeyEvent.KEYCODE_R:
+                    // Refresh current tab
+                    LightningView currentTab = mTabsManager.getCurrentTab();
+                    if (currentTab != null) {
+                        currentTab.reload();
+                    }
+                    return true;
+                case KeyEvent.KEYCODE_TAB:
+                    int nextIndex = 0;
+                    if (event.isShiftPressed()) {
+                        // Go back one tab
+                        if (mTabsManager.indexOfCurrentTab() > 0) {
+                            nextIndex = mTabsManager.indexOfCurrentTab() - 1;
+                        } else {
+                            nextIndex = mTabsManager.last();
+                        }
+                    } else {
+                        // Go forward one tab
+                        if (mTabsManager.indexOfCurrentTab() < mTabsManager.last()) {
+                            nextIndex = mTabsManager.indexOfCurrentTab() + 1;
+                        } else {
+                            nextIndex = 0;
+                        }
+                    }
+                    mPresenter.tabChanged(nextIndex);
+                    return true;
+            }
+        } else if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_SEARCH) {
+            // Highlight search field
+            mSearch.requestFocus();
+            mSearch.selectAll();
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final LightningView currentView = mTabsManager.getCurrentTab();
         final String currentUrl = currentView != null ? currentView.getUrl() : null;
@@ -799,6 +853,9 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
                 return true;
             case R.id.action_history:
                 openHistory();
+                return true;
+            case R.id.action_downloads:
+                openDownloads();
                 return true;
             case R.id.action_add_bookmark:
                 if (currentUrl != null && !UrlUtils.isSpecialUrl(currentUrl)) {
@@ -1598,6 +1655,22 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
             });
     }
 
+    private void openDownloads() {
+        new DownloadsPage().getDownloadsPage()
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.main())
+            .subscribe(new SingleOnSubscribe<String>() {
+                @Override
+                public void onItem(@Nullable String item) {
+                    Preconditions.checkNonNull(item);
+                    LightningView view = mTabsManager.getCurrentTab();
+                    if (view != null) {
+                        view.loadUrl(item);
+                    }
+                }
+            });
+    }
+
     private View getBookmarkDrawer() {
         return mSwapBookmarksAndTabs ? mDrawerLeft : mDrawerRight;
     }
@@ -2104,6 +2177,18 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
         if (currentTab != null && currentTab.getUrl().startsWith(Constants.FILE)
             && currentTab.getUrl().endsWith(BookmarkPage.FILENAME)) {
             currentTab.loadBookmarkpage();
+        }
+        if (currentTab != null) {
+            mBookmarksView.handleUpdatedUrl(currentTab.getUrl());
+        }
+    }
+
+    @Override
+    public void handleDownloadDeleted() {
+        final LightningView currentTab = mTabsManager.getCurrentTab();
+        if (currentTab != null && currentTab.getUrl().startsWith(Constants.FILE)
+            && currentTab.getUrl().endsWith(DownloadsPage.FILENAME)) {
+            currentTab.loadDownloadspage();
         }
         if (currentTab != null) {
             mBookmarksView.handleUpdatedUrl(currentTab.getUrl());
