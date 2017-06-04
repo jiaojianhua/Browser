@@ -800,6 +800,9 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
             mSearch.requestFocus();
             mSearch.selectAll();
             return true;
+        } else if (event.getAction() == KeyEvent.ACTION_UP && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            // FIXME?
+            Handlers.MAIN.removeCallbacks(mLongPressBackRunnable);
         }
         return super.dispatchKeyEvent(event);
     }
@@ -1911,7 +1914,12 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
         mCustomViewCallback = callback;
         mCustomView = view;
 
-        setRequestedOrientation(requestedOrientation);
+        // FIXME?
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        } else {
+            setRequestedOrientation(android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         final FrameLayout decorView = (FrameLayout) getWindow().getDecorView();
 
         mFullscreenContainer = new FrameLayout(this);

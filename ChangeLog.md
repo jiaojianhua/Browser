@@ -18,4 +18,4 @@
 17. Update: Disable downloads view because it is a uncomplete function
 18. FIX: crash if history item is null
 19. Update: In Home Domain, ActionBar will be there forever
-20. Update: Hide action bar except home
+21. FIX: Video full screen issue
