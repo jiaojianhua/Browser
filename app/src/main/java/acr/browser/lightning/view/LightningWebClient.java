@@ -24,6 +24,7 @@ import android.webkit.MimeTypeMap;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebBackForwardList;
+import android.webkit.WebHistoryItem;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -341,14 +342,17 @@ public class LightningWebClient extends WebViewClient {
         WebBackForwardList list = webView.copyBackForwardList();
         int index = list.getCurrentIndex();
         int size = list.getSize();
-        String currentUrl = list.getCurrentItem().getUrl();
-        if(!currentUrl.equals(url)){
-            if(mLightningView.getBackOrForward() == 1 && webView.canGoBack() ){
-                webView.goBack();
-                url = "";
-            } else if(mLightningView.getBackOrForward() == 2 && webView.canGoForward()){
-                webView.goForward();
-                url = "";
+        WebHistoryItem item = list.getCurrentItem();
+        if(item != null){
+            String currentUrl = item.getUrl();
+            if(!currentUrl.equals(url)){
+                if(mLightningView.getBackOrForward() == 1 && webView.canGoBack() ){
+                    webView.goBack();
+                    url = "";
+                } else if(mLightningView.getBackOrForward() == 2 && webView.canGoForward()){
+                    webView.goForward();
+                    url = "";
+                }
             }
         }
         return url;
