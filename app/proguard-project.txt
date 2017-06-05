@@ -112,7 +112,7 @@
 
 -dontwarn org.apache.http.HttpHost
 
-# square okhttp
+# Needed for okhttp
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
