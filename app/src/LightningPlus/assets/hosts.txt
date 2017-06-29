@@ -48023,6 +48023,4 @@
 127.0.0.1	zz.zeroredirect1.com
 127.0.0.1	zzz.clickbank.net
 127.0.0.1	_thums.ero-advertising.com
-127.0.0.1	yu.qxngg.com
-127.0.0.1	da.ddanq.com
-# Hosts: 48017
+# Hosts: 48015

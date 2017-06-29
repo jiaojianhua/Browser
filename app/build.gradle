@@ -16,6 +16,12 @@ android {
     sourceSets {
         lightningPlus.setRoot('src/LightningPlus')
         lightningLite.setRoot('src/LightningLite')
+        lightningPlusCN {
+            root = 'src/lightningPlusCN'
+            res {
+                exclude '**/values-de/strings.xml'
+            }
+        }
     }
 
     buildTypes {
@@ -37,6 +43,15 @@ android {
             buildConfigField "boolean", "FULL_VERSION", "Boolean.parseBoolean(\"true\")"
             applicationId "me.zhadan.browser"
             versionCode project.versionCode_plus
+        }
+
+        lightningPlusCN {
+            buildConfigField "boolean", "FULL_VERSION", "Boolean.parseBoolean(\"true\")"
+            applicationId "me.zhadan.browser"
+            versionCode project.versionCode_plus
+            defaultConfig {
+                resConfigs 'zh-rCN'
+            }
         }
 
         lightningLite {
