@@ -1,7 +1,6 @@
 package acr.browser.lightning.utils;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -75,8 +74,9 @@ public class IntentUtils {
             if (mActivity.startActivityIfNeeded(intent, -1)) {
                 return true;
             }
-        } catch (ActivityNotFoundException ex) {
-            ex.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            // TODO: 6/5/17 fix case where this could throw a FileUriExposedException due to file:// urls
         }
         return false;
     }

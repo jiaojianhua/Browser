@@ -25,7 +25,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import acr.browser.lightning.R;
-import acr.browser.lightning.app.BrowserApp;
+import acr.browser.lightning.BrowserApp;
 import acr.browser.lightning.database.HistoryItem;
 import acr.browser.lightning.database.history.HistoryModel;
 import acr.browser.lightning.utils.Preconditions;
@@ -44,10 +44,12 @@ public class HistoryPage {
         "<meta name=viewport content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>\n" +
         "<title>";
 
-    private static final String HEADING_2 = "</title>" +
-        "</head>" +
-        "<style>body{background:#f5f5f5;}.box{vertical-align:middle;position:relative; display: block; margin: 10px;padding:10px; background-color:#fff;box-shadow: 0px 2px 4px rgba( 0, 0, 0, 0.25 );font-family: Arial;color: #444;font-size: 12px;-moz-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}.box a { width: 100%; height: 100%; position: absolute; left: 0; top: 0;}.black {color: black;font-size: 15px;font-family: Arial; white-space: nowrap; overflow: hidden;margin:auto; text-overflow: ellipsis; -o-text-overflow: ellipsis; -ms-text-overflow: ellipsis;}.font {color: gray;font-size: 10px;font-family: Arial; white-space: nowrap; overflow: hidden;margin:auto; text-overflow: ellipsis; -o-text-overflow: ellipsis; -ms-text-overflow: ellipsis;}</style>" +
-        "<body><div id='content'>";
+    private static final String HEADING_2 = "</title></head><style>body,html {margin: 0px; padding: 0px;}" +
+        ".box { vertical-align:middle;position:relative; display: block; margin: 0px;padding-left:14px;padding-right:14px;padding-top:9px;padding-bottom:9px; background-color:#fff;border-bottom: 1px solid #d2d2d2;font-family: Arial;color: #444;font-size: 12px;}" +
+        ".box a { width: 100%; height: 100%; position: absolute; left: 0; top: 0;}" +
+        ".black {color: black;font-size: 15px;font-family: Arial; white-space: nowrap; overflow: hidden;margin:auto; text-overflow: ellipsis; -o-text-overflow: ellipsis; -ms-text-overflow: ellipsis;}" +
+        ".font {color: gray;font-size: 10px;font-family: Arial; white-space: nowrap; overflow: hidden;margin:auto; text-overflow: ellipsis; -o-text-overflow: ellipsis; -ms-text-overflow: ellipsis;}" +
+        "</style><body><div id=\"content\">";
 
     private static final String PART1 = "<div class=box><a href='";
 
@@ -59,9 +61,22 @@ public class HistoryPage {
 
     private static final String END = "</div></body></html>";
 
+    /**
+     * Get the file that the history page is stored in
+     * or should be stored in.
+     *
+     * @param application the application used to access the file.
+     * @return a valid file object, note that the file might not exist.
+     */
+    @NonNull
+    private static File getHistoryPageFile(@NonNull Application application) {
+        return new File(application.getFilesDir(), FILENAME);
+    }
+
     @NonNull private final String mTitle;
 
     @Inject Application mApp;
+    @Inject HistoryModel mHistoryModel;
 
     public HistoryPage() {
         BrowserApp.getAppComponent().inject(this);
@@ -75,7 +90,7 @@ public class HistoryPage {
             public void onSubscribe(@NonNull final SingleSubscriber<String> subscriber) {
                 final StringBuilder historyBuilder = new StringBuilder(HEADING_1 + mTitle + HEADING_2);
 
-                HistoryModel.lastHundredVisitedHistoryItems()
+                mHistoryModel.lastHundredVisitedHistoryItems()
                     .subscribe(new SingleOnSubscribe<List<HistoryItem>>() {
                         @Override
                         public void onItem(@Nullable List<HistoryItem> item) {
@@ -95,7 +110,7 @@ public class HistoryPage {
                             }
 
                             historyBuilder.append(END);
-                            File historyWebPage = new File(mApp.getFilesDir(), FILENAME);
+                            File historyWebPage = getHistoryPageFile(mApp);
                             FileWriter historyWriter = null;
                             try {
                                 //noinspection IOResourceOpenedButNotSafelyClosed
@@ -128,7 +143,7 @@ public class HistoryPage {
         return Completable.create(new CompletableAction() {
             @Override
             public void onSubscribe(@NonNull CompletableSubscriber subscriber) {
-                File historyWebPage = new File(application.getFilesDir(), FILENAME);
+                File historyWebPage = getHistoryPageFile(application);
                 if (historyWebPage.exists()) {
                     historyWebPage.delete();
                 }
