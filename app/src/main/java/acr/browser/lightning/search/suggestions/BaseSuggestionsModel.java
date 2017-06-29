@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.URLUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -84,6 +85,9 @@ public abstract class BaseSuggestionsModel {
      */
     @NonNull
     public final List<HistoryItem> fetchResults(@NonNull final String rawQuery) {
+        if (URLUtil.isValidUrl(rawQuery)) {
+            return new ArrayList<>(0);
+        }
         List<HistoryItem> filter = new ArrayList<>(5);
 
         String query;
