@@ -30,8 +30,8 @@ public final class Constants {
     public static final String YANDEX_SEARCH = "https://yandex.ru/yandsearch?lr=21411&text=";
 
     // Home page url
-    public static final String HOME_PAGE_URL = "http://zhadan.me/";
-    public static final String HOME_DOMAIN = "zhadan.me";
+    public static final String HOME_PAGE_URL = "http://duipai.me/";
+    public static final String HOME_DOMAIN = "duipai.me";
 
     // Custom local page schemes
     public static final String SCHEME_HOMEPAGE = "about:home";
