@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.webkit.URLUtil;
 import android.webkit.WebView;
 
 import java.net.URISyntaxException;
@@ -59,7 +60,7 @@ public class IntentUtils {
                 mActivity.startActivity(intent);
                 return true;
             } else {
-                return false;
+                return URLUtil.isNetworkUrl(url) ? false : true;
             }
         }
         if (tab != null) {
