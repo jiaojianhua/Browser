@@ -45,6 +45,7 @@ import javax.inject.Inject;
 import acr.browser.lightning.BuildConfig;
 import acr.browser.lightning.R;
 import acr.browser.lightning.BrowserApp;
+import acr.browser.lightning.browser.activity.BrowserActivity;
 import acr.browser.lightning.constant.Constants;
 import acr.browser.lightning.controller.UIController;
 import acr.browser.lightning.dialog.BrowserDialog;
@@ -127,7 +128,12 @@ public class LightningWebClient extends WebViewClient {
         mLightningView.getTitleInfo().setFavicon(null);
         if (mLightningView.isShown()) {
             mUIController.updateUrl(url, true);
-            mUIController.showActionBar();
+            if (Utils.isCORS(view.getOriginalUrl(), view.getUrl())) {
+                // FIXME?
+                ((BrowserActivity)mActivity).showActionBar(true);
+            } else {
+                mUIController.showActionBar();
+            }
         }
         mUIController.tabChanged(mLightningView);
     }
