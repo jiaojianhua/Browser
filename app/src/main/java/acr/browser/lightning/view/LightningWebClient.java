@@ -47,6 +47,7 @@ import acr.browser.lightning.R;
 import acr.browser.lightning.BrowserApp;
 import acr.browser.lightning.browser.activity.BrowserActivity;
 import acr.browser.lightning.constant.Constants;
+import acr.browser.lightning.content.HtmlContent;
 import acr.browser.lightning.controller.UIController;
 import acr.browser.lightning.dialog.BrowserDialog;
 import acr.browser.lightning.adblock.AdBlock;
@@ -105,6 +106,7 @@ public class LightningWebClient extends WebViewClient {
     @Override
     public void onPageFinished(@NonNull WebView view, String url) {
         if (view.isShown()) {
+            HtmlContent.evaluateJavascript(mActivity, view);
             mUIController.updateUrl(url, false);
             mUIController.setBackButtonEnabled(view.canGoBack());
             mUIController.setForwardButtonEnabled(view.canGoForward());
