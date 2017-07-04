@@ -24,7 +24,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -62,6 +61,7 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient.CustomViewCallback;
 import android.webkit.WebIconDatabase;
@@ -847,7 +847,7 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
                 openBookmarks();
                 return true;
             case R.id.action_copy:
-                if (currentUrl != null && (!UrlUtils.isSpecialUrl(currentUrl) || currentUrl.equals(Constants.HOME_PAGE_URL))) {
+                if (currentUrl != null && URLUtil.isNetworkUrl(currentUrl)) {
                     ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                     ClipData clip = ClipData.newPlainText("label", currentUrl);
                     clipboard.setPrimaryClip(clip);
@@ -2111,9 +2111,9 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
     /**
      * Check if a currenttab is a home_domain page
      */
-    public boolean isHomeDomain() {
+    public boolean isHomePage() {
         final LightningView currentTab = mTabsManager.getCurrentTab();
-        return currentTab != null &&UrlUtils.isHomeDomain(currentTab.getUrl());
+        return currentTab != null &&UrlUtils.isHomePage(currentTab.getUrl());
     }
 
     /**
@@ -2124,7 +2124,7 @@ public abstract class BrowserActivity extends ThemableBrowserActivity implements
     @Override
     public void hideActionBar() {
         if (mFullScreen) {
-            if (mToolbarLayout == null || mBrowserFrame == null || isHomeDomain())
+            if (mToolbarLayout == null || mBrowserFrame == null || isHomePage())
                 return;
 
             // should not hidden in home_page

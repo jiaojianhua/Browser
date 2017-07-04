@@ -141,7 +141,7 @@ public class UrlUtils {
     /**
      * Check if a home_domain page
      */
-    public static boolean isHomeDomain(@NonNull String url) {
-        return url.contains(Constants.HOME_DOMAIN);
+    public static boolean isHomePage(@NonNull String url) {
+        return url.contains(Constants.HOME_PAGE_URL);
     }
 }
