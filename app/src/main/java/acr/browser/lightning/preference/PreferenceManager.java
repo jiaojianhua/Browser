@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -86,7 +88,11 @@ public class PreferenceManager {
     @NonNull
     public Suggestion getSearchSuggestionChoice() {
         try {
-            return Suggestion.valueOf(mPrefs.getString(Name.SEARCH_SUGGESTIONS, Suggestion.SUGGESTION_BAIDU.name()));
+            Locale locale = Locale.getDefault();
+            if (locale.equals(Locale.CHINA)) {
+                return Suggestion.valueOf(mPrefs.getString(Name.SEARCH_SUGGESTIONS, Suggestion.SUGGESTION_BAIDU.name()));
+            }
+            return Suggestion.valueOf(mPrefs.getString(Name.SEARCH_SUGGESTIONS, Suggestion.SUGGESTION_GOOGLE.name()));
         } catch (IllegalArgumentException ignored) {
             return Suggestion.SUGGESTION_NONE;
         }
