@@ -22,10 +22,12 @@ public class HtmlContent {
 
     @NonNull private final Activity mActivity;
     @NonNull private String mHtml;
+    @NonNull private String mUrl;
 
-    private HtmlContent(@NonNull Activity activity, @NonNull final String html) {
+    private HtmlContent(@NonNull Activity activity, @NonNull final String html, @NonNull String url) {
         mActivity = activity;
         mHtml = html;
+        mUrl = url;
     }
 
     private void setOrientation() {
@@ -41,10 +43,10 @@ public class HtmlContent {
     }
 
     private boolean isLandScape() {
-        return mHtml.equals("true");
+        return mHtml.equals("true") || mUrl.contains("landscape=true");
     }
 
-    static public void evaluateJavascript(@NonNull final Activity activity, @NonNull WebView view) {
+    static public void evaluateJavascript(@NonNull final Activity activity, @NonNull final WebView view) {
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
             return;
         }
@@ -55,7 +57,7 @@ public class HtmlContent {
                     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
                     @Override
                     public void onReceiveValue(String html) {
-                        HtmlContent hc = new HtmlContent(activity, html);
+                        HtmlContent hc = new HtmlContent(activity, html, view.getUrl());
                         hc.setOrientation();
                     }
                 });
